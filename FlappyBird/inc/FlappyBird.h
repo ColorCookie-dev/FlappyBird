@@ -9,5 +9,5 @@ namespace FlappyBird
 		const wchar_t *className);
 
 	bool CreateWin(HWND *pHwnd, const wchar_t *className, const wchar_t *winName,
-		HINSTANCE hInstance);
+		HINSTANCE hInstance, RECT rc);
 }

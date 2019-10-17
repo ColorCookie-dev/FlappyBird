@@ -1,5 +1,7 @@
 #include<stdafx.h>
 
+extern bool gbGameRunning, gbJumped;
+
 LRESULT CALLBACK FlappyBird::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	switch (uMsg)
@@ -7,6 +9,18 @@ LRESULT CALLBACK FlappyBird::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 	case WM_CREATE:
 	{
 		break;
+	}
+	case WM_KEYDOWN:
+	{
+		switch (wParam)
+		{
+		case VK_SPACE:
+		{
+			if (!gbGameRunning) gbGameRunning = true;
+			else gbJumped = true;
+			return 0;
+		}
+		}
 	}
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -17,9 +31,8 @@ LRESULT CALLBACK FlappyBird::WinProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM
 }
 
 bool FlappyBird::CreateWin(HWND *pHwnd, const wchar_t *className, const wchar_t *winName,
-	HINSTANCE hInstance)
+	HINSTANCE hInstance, RECT rc)
 {
-	RECT rc = { 600, 800 };
 	AdjustWindowRectEx(&rc, WS_OVERLAPPEDWINDOW, NULL, NULL);
 	(*pHwnd) = CreateWindowEx(NULL,
 		className,
